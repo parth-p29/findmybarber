@@ -8,3 +8,11 @@ img{
 .button{
     margin-top: 60px;
 }
+a{
+    border: 0.8px solid black;
+    padding: 10px 15px 10px 15px;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+
+}
