@@ -1,5 +1,4 @@
 import Title from '../../Components/Title/Title'
-import GoogleLogin from 'react-google-login';
 import './LoginPage.css'
 
 const Login = () => {

@@ -1,28 +1,23 @@
-import {withGoogleMap,   GoogleMap, Marker } from "react-google-maps";
 import Title from '../../Components/Title/Title';
+import Map from '../../Components/Map/Map'
 
-const getCurrentPosition = (callback) => {
+const MainPage = () => {
 
-    if (navigator.geolocation){
+    return (
 
-        navigator.geolocation.getCurrentPosition((position) => {
+        <div className="main">
 
-            callback(position.coords.latitude, position.coords.longitude);
-        });
-    }
+            <Title />
+            <Map />
 
-    else {
-        return ("Can't get your location.");
-    }
+        </div>
+
+    );
+
+
 }
+    
+ 
 
-const MainPage = withGoogleMap(() =>
-    <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-    >
-
-    </GoogleMap>
-)
 
 export default MainPage
