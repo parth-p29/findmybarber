@@ -1,16 +1,18 @@
 import './App.css';
-import './Components/Title/Title'
-import LoginPage from './Pages/LoginPage/LoginPage'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import MainPage from './Pages/MainPage/MainPage';
+import Nav from './Components/Nav/Nav';
+import Login from './Pages/LoginPage/LoginPage';
 
 function App() {
 
   return (
     <Router>
 
+      <Nav />
+
       <Switch>
-        <Route path="/" exact component={LoginPage}  />
+        <Route path="/" exact component={Login}  />
         <Route path="/main" component={MainPage}  />
       </Switch>
 

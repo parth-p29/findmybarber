@@ -1,4 +1,3 @@
-import Title from '../../Components/Title/Title';
 import Map from '../../Components/Map/Map'
 
 const MainPage = () => {
@@ -7,7 +6,6 @@ const MainPage = () => {
 
         <div className="main">
 
-            <Title />
             <Map />
 
         </div>
