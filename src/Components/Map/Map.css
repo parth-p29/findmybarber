@@ -1,5 +1,18 @@
 .graph{
-    width: 40%;
-    height: 50vh;
+    width: 50%;
+    height: 55vh;
     margin: auto;
+}
+#marker{
+    max-width:25px;
+    max-height:50px;
+}
+#permission{
+    padding: 10px 25px 10px 25px;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    background-color: #0F62FE;
+    border: 0.5px solid #0F62FE;
+    color: white;
+    cursor: pointer;
 }

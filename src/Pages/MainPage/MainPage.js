@@ -1,4 +1,4 @@
-import Map from '../../Components/Map/Map'
+import GMap from '../../Components/Map/Marker'
 
 const MainPage = () => {
 
@@ -6,7 +6,9 @@ const MainPage = () => {
 
         <div className="main">
 
-            <Map />
+            
+            <GMap />
+
 
         </div>
 

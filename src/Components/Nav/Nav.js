@@ -9,23 +9,27 @@ const Nav = () => {
 
             <div className="logo">
 
-                <img src={logo} />
+                <a href="/">
+                    <img src={logo} />
+                </a>
                 
             </div>
 
             <div className="links">
 
-                <a href="/main">Find Barbers</a>
-                <a href="https://github.com/parth-p29?tab=repositories" target="_blank">Github</a>
+                <a href="/main">
+                    
+                </a>
+                
+                <a href="https://github.com/parth-p29?tab=repositories" target="_blank">
+                    Github
+                </a>
 
             </div>
 
         </nav>
 
-
     );
-
-
 
 }
 
