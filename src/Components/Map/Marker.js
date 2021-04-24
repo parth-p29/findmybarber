@@ -1,12 +1,13 @@
 import './Map.css'
 import logo from '../../Assets/location.png'
-import {Component} from 'react';
+import {Component, useCallback} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
+import Search from './Search';
 
 const containerStyle = {
     width: '50%',
     height: '55vh'
-}   
+}
 
 class GMap extends Component {
 
@@ -18,6 +19,18 @@ class GMap extends Component {
         },
 
         valuee: ''
+    }
+
+    goToCoords(lat, lng){
+
+        this.setState (
+            {
+                center: {
+                    lat: lat,
+                    lng: lng
+                }
+            }
+        )
     }
 
     success = (location) => {
@@ -44,10 +57,9 @@ class GMap extends Component {
         <div className="main">
             <div className="graph">
 
-                <p>hello</p>
-
                 <div className="input">
                     <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
+                    <Search goToCoords={this.goToCoords} />
 
                 </div>
                 

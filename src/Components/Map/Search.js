@@ -2,19 +2,56 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
   } from "use-places-autocomplete";
-  import useOnclickOutside from "react-cool-onclickoutside";
 
+import {
+    Combobox,
+    ComboboxInput,
+    ComboboxPopover,
+    ComboboxList,
+    ComboboxOption,
+    ComboboxOptionText,
+} from "@reach/combobox";
 
-  const Search = (props) => {
+import "@reach/combobox/styles.css";
+import './Search.css'
 
-    const {} = usePlacesAutocomplete({
+const Search = ( props ) => {
 
-        requestOptions: {
-            location: {
-                lat: props.lat,
-                lng: props.lng
-            }
-        }
-    })
+    const {ready, value, suggestions: {status, data}, setValue, clearSuggestions, } = usePlacesAutocomplete({});
 
-  }
+    return (
+
+        <>
+            <Combobox  onSelect = { async (address) => {
+
+                try{
+
+                    const geoCode = await getGeocode({address});
+                    const {lat, lng} = await getLatLng(geoCode[0]);
+                    props.goToCoords(lat, lng);
+
+                } catch (err){
+
+                    console.log(err);
+                }
+
+            }}>
+
+                <ComboboxInput value = {value} onChange = {(c) => {
+                    setValue(c.target.value);
+                }} 
+                
+                disabled = {!ready} 
+                placeholder = "Or Any Location..." />
+
+                <ComboboxPopover>
+                    {status === "OK" && data.map(({id, description}) => <ComboboxOption key={id} value={description} /> )}
+                </ComboboxPopover>
+
+            </Combobox>
+        </>
+    )
+
+}
+
+export default Search
