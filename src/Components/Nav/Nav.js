@@ -17,8 +17,8 @@ const Nav = () => {
 
             <div className="links">
 
-                <a href="/main">
-                    
+                <a href="/">
+                    About
                 </a>
                 
                 <a href="https://github.com/parth-p29?tab=repositories" target="_blank">

@@ -21,7 +21,7 @@ const Login = () => {
 
                 <div className="links">
 
-                    <a href="/main">FIND A BARBER</a>
+                    <a href="/main">Find a Barber</a>
 
                 </div>
 

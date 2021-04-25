@@ -1,6 +1,5 @@
 import './Map.css'
-import logo from '../../Assets/location.png'
-import {Component, useCallback} from 'react';
+import {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
 import Search from './Search';
 
@@ -31,8 +30,6 @@ class GMap extends Component {
                 }
             }
         )
-        console.log(newLat);
-        console.log(newLng);
     }
 
     success = (location) => {
