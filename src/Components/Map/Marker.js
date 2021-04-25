@@ -21,16 +21,18 @@ class GMap extends Component {
         valuee: ''
     }
 
-    goToCoords(lat, lng){
+    goToCoords = (newLat, newLng) => {
 
         this.setState (
             {
                 center: {
-                    lat: lat,
-                    lng: lng
+                    lat: newLat,
+                    lng: newLng
                 }
             }
         )
+        console.log(newLat);
+        console.log(newLng);
     }
 
     success = (location) => {
