@@ -22,7 +22,7 @@ const Search = ( props ) => {
     return (
 
         <>
-            <Combobox  onSelect = { async (address) => {
+            <Combobox onSelect = { async (address) => {
 
                 try{
 

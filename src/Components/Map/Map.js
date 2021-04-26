@@ -3,6 +3,8 @@ import {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
 import Search from './Search';
 
+const apiKey = 'AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU'
+
 const containerStyle = {
     width: '50%',
     height: '55vh'
@@ -17,7 +19,8 @@ class GMap extends Component {
             lng: -79.3948
         },
 
-        valuee: ''
+        radius: 50000
+
     }
 
     goToCoords = (newLat, newLng) => {
@@ -50,17 +53,34 @@ class GMap extends Component {
         navigator.geolocation.getCurrentPosition(this.success);
     }
 
+    submit = async () => {
+
+        const baseUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=barbershop&inputtype=textquery&key=${apiKey}`
+        const fields = '&fields=photos,formatted_address,name,opening_hours/open_now,rating,icon,price_level,user_ratings_total'
+        const location = `&locationbias=circle:${this.state.radius}@${this.state.center.lat},${this.state.center.lng}}`
+        const finalUrl = baseUrl + fields + location;
+
+        var data = await fetch(finalUrl);
+
+        var items = data.json()
+
+        console.log(items);
+    }
+
     render() {
       return (
         
         <div className="main">
             <div className="graph">
+            
+                    <div className="input">
 
-                <div className="input">
-                    <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
-                    <Search goToCoords={this.goToCoords} />
+                        <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
+                        <Search goToCoords={this.goToCoords} />
+                        
+                        <button id="permission" onClick={this.submit}>Search</button>
 
-                </div>
+                    </div>
                 
                 <Map 
                 google={this.props.google} 
@@ -85,7 +105,7 @@ class GMap extends Component {
                     position={{lat: this.state.center.lat, lng: this.state.center.lng}} />
 
                     <Circle
-                            radius={2400 / 1.609}
+                            radius={(this.state.radius) / 1.609}
                             center={{lat: this.state.center.lat, lng: this.state.center.lng}}
                             onMouseover={() => console.log('mouseover')}
                             onClick={() => console.log('click')}
@@ -108,5 +128,5 @@ class GMap extends Component {
   }
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU')
+    apiKey: (apiKey)
   })(GMap)
