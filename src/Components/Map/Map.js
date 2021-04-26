@@ -2,6 +2,7 @@ import './Map.css'
 import {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
 import Search from './Search';
+import axios from 'axios';
 
 const apiKey = 'AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU'
 
@@ -19,7 +20,7 @@ class GMap extends Component {
             lng: -79.3948
         },
 
-        radius: 50000
+        radius: 5000
 
     }
 
@@ -55,16 +56,31 @@ class GMap extends Component {
 
     submit = async () => {
 
-        const baseUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=barbershop&inputtype=textquery&key=${apiKey}`
-        const fields = '&fields=photos,formatted_address,name,opening_hours/open_now,rating,icon,price_level,user_ratings_total'
-        const location = `&locationbias=circle:${this.state.radius}@${this.state.center.lat},${this.state.center.lng}}`
-        const finalUrl = baseUrl + fields + location;
+        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        const baseUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}`;
+        const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
+        const keyword = `&keyword=barbershop`;
+        const finalUrl = corsProxy + baseUrl + location + keyword;
 
-        var data = await fetch(finalUrl);
+        axios
+            .get(finalUrl)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 
-        var items = data.json()
+        // await fetch(finalUrl)
+        //     .then((response) => {
+        //         const data = response;
+        //         const name = data;
+        //         console.log(name);
+        //     })
 
-        console.log(items);
+        //     .catch(error => {
+        //         console.log(error.message);
+        //     })
     }
 
     render() {
