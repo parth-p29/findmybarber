@@ -62,25 +62,24 @@ class GMap extends Component {
         const keyword = `&keyword=barbershop`;
         const finalUrl = corsProxy + baseUrl + location + keyword;
 
-        axios
-            .get(finalUrl)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+        await axios ({
+            method: 'GET',
+            url: finalUrl,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+            }
+        })
+            
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
 
-        // await fetch(finalUrl)
-        //     .then((response) => {
-        //         const data = response;
-        //         const name = data;
-        //         console.log(name);
-        //     })
-
-        //     .catch(error => {
-        //         console.log(error.message);
-        //     })
     }
 
     render() {
