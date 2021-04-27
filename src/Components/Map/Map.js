@@ -101,7 +101,7 @@ class GMap extends Component {
 
                         <select name='radius' onChange={this.setRange}>
                                 <option value="none" selected disabled>
-                                    Choose a search Radius
+                                    Choose a Search Radius
                                 </option>
                                 <option value={1000}>1km</option>
                                 <option value={3000}>3km</option>
@@ -113,10 +113,14 @@ class GMap extends Component {
 
                         <div className="location">
 
-                            <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
                             <Search goToCoords={this.goToCoords} />
-                            <button id="permission" onClick={this.submit}>Find Barbers</button>
+                            <p>Or</p>
+                            <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
 
+                        </div>
+                        
+                        <div className="submit">
+                            <button id="permission" onClick={this.submit}>Find Barbers</button>
                         </div>
 
                     </div>
