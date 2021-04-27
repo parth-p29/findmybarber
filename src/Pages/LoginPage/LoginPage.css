@@ -11,6 +11,7 @@ img{
 }
 .text{
     width: 700px;
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
 }

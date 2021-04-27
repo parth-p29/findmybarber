@@ -11,6 +11,24 @@ const containerStyle = {
     height: '55vh'
 }
 
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
+
 class GMap extends Component {
 
     state = {
@@ -25,7 +43,9 @@ class GMap extends Component {
         display: {
             style: "none",
             clicked: false
-        }
+        },
+
+        data : []
     }
 
     goToCoords = (newLat, newLng) => {
@@ -72,7 +92,7 @@ class GMap extends Component {
         const corsProxy = 'https://cors-anywhere.herokuapp.com/';
         const baseUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}`;
         const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
-        const keyword = `&keyword=barbershop`;
+        const keyword = `&keyword=barbershop&opennow`;
         const finalUrl = corsProxy + baseUrl + location + keyword;
 
         await axios ({
@@ -86,11 +106,46 @@ class GMap extends Component {
             }
         })
             
-        .then(response => {
-            console.log(response.data);
+        .then(async response => {
+
+            const data = response.data.results;
+            for (let index = 0; index < 5; index++) {
+
+                const card_data = {
+
+                    'name': data.name,
+                    'address': data.vicinity,
+                    'overall_rating': data.rating,
+                    'total_rates': data.user_ratings_total,
+                    'distance' : getDistanceFromLatLonInKm(this.state.center.lat, this.state.center.lng, data.geometry.location.lat, data.geometry.location.lng)
+
+                }
+
+                console.log(card_data);
+
+                // const place_id = data[index].place_id
+                // const url = `https://maps.googleapis.com/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}&fields=name,rating,review`
+                // const fields = '&fields=name,rating,reviews'//,vicinity,formatted_phone_number,rating,review,user_ratings_total,geometry,opening_hours,website
+                // await axios ({
+                //     method: 'GET',
+                //     url: corsProxy+url,
+                //     headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json',
+                //         'Access-Control-Allow-Headers': '*',
+                //         'Access-Control-Allow-Origin': '*',
+                //     }
+                // })
+
+                // .then(response => {
+                //     console.log(response.data);
+                // })
+
+            }
+
         })
         .catch(error => {
-            console.log(error.message);
+            alert(`${error.message} - The session as ended. Please visit: http://cors-anywhere.herokuapp.com/corsdemo and click on 'request temporary access' to restart CORS session.`);
         })
 
     }
@@ -135,7 +190,7 @@ class GMap extends Component {
                         <div className="location">
 
                             <Search goToCoords={this.goToCoords} />
-                            <p>Or</p>
+                            <p>or</p>
                             <button className="permission" onClick={this.getUserLocation}>Use Your Location</button> 
 
                         </div>
