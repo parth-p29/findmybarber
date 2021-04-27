@@ -20,8 +20,12 @@ class GMap extends Component {
             lng: -79.3948
         },
 
-        radius: 1000
+        radius: 1000,
 
+        display: {
+            style: "none",
+            clicked: false
+        }
     }
 
     goToCoords = (newLat, newLng) => {
@@ -91,13 +95,30 @@ class GMap extends Component {
 
     }
 
+    changeDisplay = () => {
+
+        this.setState (
+
+            {
+                display: {
+                    style: this.state.display.clicked ? 'none' : 'block',
+                    clicked: this.state.display.clicked ? false : true
+                }
+            }
+        )
+    }
+
     render() {
       return (
         
         <div className="main">
             <div className="graph">
+                    
+                    <div className="show">
+                        <p className="permission" onClick={this.changeDisplay}>Setup Search</p>
+                    </div>
 
-                    <div className="input">
+                    <div id="input" style={{display: this.state.display.style}}>
 
                         <select name='radius' onChange={this.setRange}>
                                 <option value="none" selected disabled>
@@ -115,12 +136,12 @@ class GMap extends Component {
 
                             <Search goToCoords={this.goToCoords} />
                             <p>Or</p>
-                            <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
+                            <button className="permission" onClick={this.getUserLocation}>Use Your Location</button> 
 
                         </div>
                         
                         <div className="submit">
-                            <button id="permission" onClick={this.submit}>Find Barbers</button>
+                            <button className="permission" onClick={this.submit}>Find</button>
                         </div>
 
                     </div>
@@ -159,9 +180,7 @@ class GMap extends Component {
                             fillColor='#FF0000'
                             fillOpacity={0.2}
                         />
-        
                 </Map>
-
             </div>
                 
         </div>

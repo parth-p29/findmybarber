@@ -1,4 +1,5 @@
 import GMap from '../../Components/Map/Map'
+import Shop from '../../Components/Shop/Shop';
 
 const MainPage = () => {
 
@@ -7,6 +8,7 @@ const MainPage = () => {
         <div className="main">
             
             <GMap />
+            <Shop />
 
         </div>
 

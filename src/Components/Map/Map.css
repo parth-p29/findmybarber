@@ -1,9 +1,9 @@
 .graph{
     width: 50%;
-    height: 55vh;
+    height: 90vh;
     margin: auto;
 }
-#permission{
+.permission{
     padding: 10px 25px 10px 25px;
     border-radius: 25px;
     margin-bottom: 10px;
@@ -11,6 +11,10 @@
     border: 0.5px solid #0F62FE;
     color: white;
     cursor: pointer;
+}
+
+#input{
+    margin-top: 30px;
 }
 
 .location{
@@ -34,7 +38,14 @@ select{
 .submit{
     width: 100%;
     margin-top: 15px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.show {
+    text-align: center;
+    margin: auto;
+    width: 180px;
 }
