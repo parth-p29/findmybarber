@@ -42,7 +42,7 @@ const Search = ( props ) => {
                 }} 
                 
                 disabled = {!ready} 
-                placeholder = "Or Any Location..." />
+                placeholder = "Or Search Any City/Region/Address..." />
 
                 <ComboboxPopover>
                     {status === "OK" && data.map(({id, description}) => <ComboboxOption key={id} value={description} /> )}

@@ -20,7 +20,7 @@ class GMap extends Component {
             lng: -79.3948
         },
 
-        radius: 5000
+        radius: 1000
 
     }
 
@@ -52,6 +52,15 @@ class GMap extends Component {
     getUserLocation = () => {
 
         navigator.geolocation.getCurrentPosition(this.success);
+    }
+
+    setRange = (val) => {
+
+        this.setState (
+            {
+                radius: val.target.value
+            }
+        )
     }
 
     submit = async () => {
@@ -87,13 +96,28 @@ class GMap extends Component {
         
         <div className="main">
             <div className="graph">
-            
+
                     <div className="input">
 
-                        <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
-                        <Search goToCoords={this.goToCoords} />
-                        
-                        <button id="permission" onClick={this.submit}>Search</button>
+                        <select name='radius' onChange={this.setRange}>
+                                <option value="none" selected disabled>
+                                    Choose a search Radius
+                                </option>
+                                <option value={1000}>1km</option>
+                                <option value={3000}>3km</option>
+                                <option value={5000}>5km</option>
+                                <option value={10000}>10km</option>
+                                <option value={15000}>15km</option>
+                                <option value={20000}>20km</option>
+                        </select>
+
+                        <div className="location">
+
+                            <button id="permission" onClick={this.getUserLocation}>Use Your Location</button> 
+                            <Search goToCoords={this.goToCoords} />
+                            <button id="permission" onClick={this.submit}>Find Barbers</button>
+
+                        </div>
 
                     </div>
                 
@@ -112,7 +136,7 @@ class GMap extends Component {
                     lng: this.state.center.lng
                 }}
 
-                zoom={10}>
+                zoom={11}>
                     
                     <Marker
                     title={'Your Location'}

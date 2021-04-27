@@ -17,8 +17,14 @@
     cursor: pointer;
 }
 
-.input{
+.location{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+}
 
+select{
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
 }
