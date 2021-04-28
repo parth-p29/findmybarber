@@ -90,7 +90,7 @@ class GMap extends Component {
     submit = async () => {
 
         //const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-        const baseUrl = `/maps/api/place/nearbysearch/json?key=${apiKey}`;
+        const baseUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${apiKey}`;
         const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
         const keyword = `&keyword=barbershop`;
         const finalUrl =  baseUrl + location + keyword;
@@ -117,7 +117,7 @@ class GMap extends Component {
                     //console.log(card_data);
 
                     const place_id = data[index].place_id
-                    const url = `/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}`
+                    const url = `https://maps.googleapis.com/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}`
                     const fields = '&fields=name,rating,reviews,vicinity,formatted_phone_number,user_ratings_total,geometry,opening_hours,website,photo,price_level'
                     
                     await axios (url + fields)
