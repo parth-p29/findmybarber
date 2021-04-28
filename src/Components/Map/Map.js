@@ -94,46 +94,48 @@ class GMap extends Component {
         const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
         const keyword = `&keyword=barbershop`;
         const finalUrl =  baseUrl + location + keyword;
+        console.log(finalUrl);
 
         await axios (finalUrl)
             
-        .then(async response => {
-            
-            const data = response.data.results;
-            for (let index = 0; index < 5; index++) {
-
-                // const card_data = {
-
-                //     'name': data.name,
-                //     'address': data.vicinity,
-                //     'overall_rating': data.rating,
-                //     'total_rates': data.user_ratings_total
-                //     //'distance' : getDistanceFromLatLonInKm(this.state.center.lat, this.state.center.lng, data.geometry.location.lat, data.geometry.location.lng)
-
-                // }
-
-                //console.log(card_data);
-
-                const place_id = data[index].place_id
-                const url = `/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}`
-                const fields = '&fields=name,rating,reviews,vicinity,formatted_phone_number,user_ratings_total,geometry,opening_hours,website,photo,price_level'
+            .then(async response => {
                 
-                await axios (url+fields)
+                const data = response.data.results;
+                console.log(data);
+                for (let index = 0; index < 5; index++) {
 
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(err => {
-                    alert(err.message);
-                })
+                    // const card_data = {
 
-            }
+                    //     'name': data.name,
+                    //     'address': data.vicinity,
+                    //     'overall_rating': data.rating,
+                    //     'total_rates': data.user_ratings_total
+                    //     //'distance' : getDistanceFromLatLonInKm(this.state.center.lat, this.state.center.lng, data.geometry.location.lat, data.geometry.location.lng)
 
-        })
-        .catch(error => {
-            //alert(`${error.message} - The session as ended. Please visit: http://cors-anywhere.herokuapp.com/corsdemo and click on 'request temporary access' to restart CORS session.`);
-            console.log(error.message)
-        })
+                    // }
+
+                    //console.log(card_data);
+
+                    const place_id = data[index].place_id
+                    const url = `/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}`
+                    const fields = '&fields=name,rating,reviews,vicinity,formatted_phone_number,user_ratings_total,geometry,opening_hours,website,photo,price_level'
+                    
+                    await axios (url + fields)
+
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(err => {
+                        alert(err.message);
+                    })
+
+                }
+
+            })
+            .catch(error => {
+                //alert(`${error.message} - The session as ended. Please visit: http://cors-anywhere.herokuapp.com/corsdemo and click on 'request temporary access' to restart CORS session.`);
+                alert(error.message)
+            })
 
     }
 
@@ -183,7 +185,7 @@ class GMap extends Component {
                         </div>
                         
                         <div className="submit">
-                            <button className="permission" onClick={this.submit}>Find</button>
+                            <button className="permission" onClick={this.submit}>Find Barbers</button>
                         </div>
 
                     </div>
