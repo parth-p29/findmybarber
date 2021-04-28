@@ -97,11 +97,11 @@ class GMap extends Component {
         console.log(finalUrl);
 
         await axios (finalUrl)
-            
+
             .then(async response => {
                 
                 const data = response.data.results;
-                console.log(data);
+                console.log(response);
                 for (let index = 0; index < 5; index++) {
 
                     // const card_data = {
