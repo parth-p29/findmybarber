@@ -14,11 +14,22 @@ NOTE: If a user does not wish to allow the app to use their location, they can j
 
 - [React](https://reactjs.org/)
 - [Google Cloud Platform (Maps/Places APIs)](https://cloud.google.com/)
+- [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
 
 ## Usage
 
 Due to cost issues, the app is shut down for now but to use it for yourself it is pretty simple:
 
 - Git clone this repo onto your computer
-- run:
-    npm install
+- run the following to install all dependencies:
+
+        npm install
+
+- Get an API key from the Google Cloud Platform and place it into these areas:
+
+        const apiKey = 'YOUR API KEY' //src/components/map/map.js
+        
+
+## Authors
+
+- Parth Patel - [parth-p29](https://github.com/parth-p29)
