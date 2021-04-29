@@ -1,8 +1,10 @@
 import './Map.css'
 import {Component} from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle, google} from 'google-maps-react';
 import Search from './Search';
 import axios from 'axios';
+import Shop from '../Shop/Shop';
+import logo from '../../Assets/barbermark.png';
 
 const apiKey = 'AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU'
 
@@ -40,12 +42,10 @@ class GMap extends Component {
 
         radius: 1000,
 
-        display: {
-            style: "none",
-            clicked: false
-        },
-
-        data : []
+        data : [],
+        reviews: [],
+        shops: '',
+        markers: ''
     }
 
     goToCoords = (newLat, newLng) => {
@@ -89,41 +89,66 @@ class GMap extends Component {
 
     submit = async () => {
 
-        //const corsProxy = 'https://cors-anywhere.herokuapp.com/';
-        const baseUrl = `maps/api/place/nearbysearch/json?key=${apiKey}`;
+        this.setState (
+            {
+                data: [],
+                reviews: [],
+                shops: '',
+                markers: ''
+            }
+        )
+        
+        const baseUrl = `/maps/api/place/nearbysearch/json?key=${apiKey}`;
         const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
         const keyword = `&keyword=barbershop`;
         const finalUrl =  baseUrl + location + keyword;
-        console.log(finalUrl);
 
         await axios (finalUrl)
 
             .then(async response => {
                 
                 const data = response.data.results;
-                console.log(response);
+
                 for (let index = 0; index < 5; index++) {
 
-                    // const card_data = {
-
-                    //     'name': data.name,
-                    //     'address': data.vicinity,
-                    //     'overall_rating': data.rating,
-                    //     'total_rates': data.user_ratings_total
-                    //     //'distance' : getDistanceFromLatLonInKm(this.state.center.lat, this.state.center.lng, data.geometry.location.lat, data.geometry.location.lng)
-
-                    // }
-
-                    //console.log(card_data);
+                    if (data.length == 0){
+                        alert('no barbers found');
+                        break
+                    }
 
                     const place_id = data[index].place_id
                     const url = `/maps/api/place/details/json?key=${apiKey}&place_id=${place_id}`
-                    const fields = '&fields=name,rating,reviews,vicinity,formatted_phone_number,user_ratings_total,geometry,opening_hours,website,photo,price_level'
+                    const fields = '&fields=name,rating,reviews,formatted_address,formatted_phone_number,user_ratings_total,geometry,website'
                     
                     await axios (url + fields)
 
                     .then(response => {
-                        console.log(response.data);
+
+                        const store_data = response.data.result;
+
+                        const card_data = {
+                            'name': store_data.name,
+                            'overall_rating': store_data.rating,
+                            "total_ratings": store_data.user_ratings_total,
+                            'phone': store_data.formatted_phone_number,
+                            'address': store_data.formatted_address,
+                            'website': store_data.website,
+                            'lat': store_data.geometry.location.lat,
+                            'lng': store_data.geometry.location.lng,
+                            'distance': getDistanceFromLatLonInKm(this.state.center.lat, this.state.center.lng, store_data.geometry.location.lat, store_data.geometry.location.lng)
+                        }
+
+                        const review_data = {
+
+                            'reviews' : store_data.reviews
+                        }
+
+                        this.setState(prevState => ({
+                            data: [...prevState.data, card_data],
+                            reviews: [...prevState.reviews, review_data]
+
+                        }))
+
                     })
                     .catch(err => {
                         alert(err.message);
@@ -133,23 +158,51 @@ class GMap extends Component {
 
             })
             .catch(error => {
-                //alert(`${error.message} - The session as ended. Please visit: http://cors-anywhere.herokuapp.com/corsdemo and click on 'request temporary access' to restart CORS session.`);
                 alert(error.message)
             })
 
-    }
-
-    changeDisplay = () => {
-
-        this.setState (
+        this.setState(
 
             {
-                display: {
-                    style: this.state.display.clicked ? 'none' : 'block',
-                    clicked: this.state.display.clicked ? false : true
-                }
+
+                shops:
+                    
+                    this.state.data.map((shop)=>{
+                        
+                        return (
+                            <Shop 
+                                name={shop.name} 
+                                o_rating={shop.overall_rating}
+                                t_ratings={shop.total_ratings}
+                                addy={shop.address}
+                                distance={Math.round(shop.distance)}
+                                phone={shop.phone}
+                                website={shop.website}
+                            />
+                        )
+    
+                    }),
+
+                markers: 
+
+                    this.state.data.map((coords)=> {
+                        
+                        return (
+                            <Marker 
+                                title={coords.name}
+                                position={{lat: coords.lat, lng: coords.lng}}
+                                icon={{
+                                    url: {logo}
+                                }}
+
+                            />
+                        )
+                    })
+
             }
-        )
+
+        )  
+
     }
 
     render() {
@@ -158,11 +211,7 @@ class GMap extends Component {
         <div className="main">
             <div className="graph">
                     
-                    <div className="show">
-                        <p className="permission" onClick={this.changeDisplay}>Setup Search</p>
-                    </div>
-
-                    <div id="input" style={{display: this.state.display.style}}>
+                    <div id="input">
 
                         <select name='radius' onChange={this.setRange}>
                                 <option value="none" selected disabled>
@@ -224,8 +273,17 @@ class GMap extends Component {
                             fillColor='#FF0000'
                             fillOpacity={0.2}
                         />
+
+                    {this.state.markers}
                 </Map>
+
             </div>
+
+            <div className="box">
+                {this.state.shops}
+            </div>
+
+
                 
         </div>
 

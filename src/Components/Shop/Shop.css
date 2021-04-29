@@ -1,0 +1,65 @@
+.shop{
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 50%;
+    height: 35vh;
+    margin: auto;
+    margin-bottom: 40px;
+    border: 0.7px solid #757575;
+    display: block;
+}
+#blue{
+    color: #0F62FE;
+    font-size: 22px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#distance{
+    padding: 6px;
+    background-color: #E4F5D7;
+    border-radius: 5px;
+}
+
+.ratings{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.links{
+    display: flex;
+}
+
+.shop .linkss img{
+    width: 45px;
+    height: auto;
+    margin: 13px 20px 10px 20px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+
+#l{
+    margin-right: 10px;
+}
+#r{
+    margin-left: 10px;
+}
+p{
+    font-size: 16px;
+}
+#button{
+    padding: 10px 25px 10px 25px;
+    border-radius: 25px;
+    margin-top: 10px;
+    background-color: #0F62FE;
+    border: 0.5px solid #0F62FE;
+    color: white;
+    cursor: pointer;
+}

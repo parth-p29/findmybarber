@@ -8,7 +8,6 @@ const MainPage = () => {
         <div className="main">
             
             <GMap />
-            <Shop />
 
         </div>
 

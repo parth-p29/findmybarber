@@ -1,6 +1,6 @@
 .graph{
     width: 50%;
-    height: 90vh;
+    height: 83vh;
     margin: auto;
 }
 .permission{
@@ -13,10 +13,6 @@
     cursor: pointer;
 }
 
-#input{
-    margin-top: 30px;
-}
-
 .location{
     display: flex;
     justify-content: space-around;
@@ -25,7 +21,7 @@
 }
 
 select{
-    padding: 10px 0px 10px 25px;
+    padding: 10px 25px 10px 25px;
     width: 100%;
     margin-bottom: 10px;
     color: #757575;
@@ -48,4 +44,5 @@ select{
     text-align: center;
     margin: auto;
     width: 180px;
+    margin-bottom: 20px;
 }
