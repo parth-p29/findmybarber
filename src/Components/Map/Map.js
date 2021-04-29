@@ -5,7 +5,7 @@ import Search from './Search';
 import axios from 'axios';
 import Shop from '../Shop/Shop';
 
-const apiKey = 'AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU'
+const apiKey = 'YOUR API KEY'
 
 const containerStyle = {
     width: '50%',
