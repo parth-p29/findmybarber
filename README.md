@@ -18,8 +18,6 @@ NOTE: If a user does not wish to allow the app to use their location, they can j
 
 ## Usage
 
-Due to cost issues, the app is shut down for now but to use it for yourself it is pretty simple:
-
 - Git clone this repo onto your computer
 - CD into the 'findmybarber' directory
 - run the following to install all dependencies:
