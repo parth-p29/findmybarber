@@ -1,10 +1,9 @@
 import './Map.css'
 import {Component} from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper, Circle, google} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, Circle} from 'google-maps-react';
 import Search from './Search';
 import axios from 'axios';
 import Shop from '../Shop/Shop';
-import logo from '../../Assets/barbermark.png';
 
 const apiKey = 'AIzaSyA4Pdd37SRTc7S7ppjSgPt8s8Tl0e4PXrU'
 
@@ -97,7 +96,7 @@ class GMap extends Component {
                 markers: ''
             }
         )
-        
+
         const baseUrl = `/maps/api/place/nearbysearch/json?key=${apiKey}`;
         const location = `&location=${this.state.center.lat},${this.state.center.lng}&radius=${this.state.radius}`;
         const keyword = `&keyword=barbershop`;
@@ -158,7 +157,7 @@ class GMap extends Component {
 
             })
             .catch(error => {
-                alert(error.message)
+                alert('Sorry, I shut down the service for now. Please check my github if you want to use it!')
             })
 
         this.setState(
@@ -191,10 +190,6 @@ class GMap extends Component {
                             <Marker 
                                 title={coords.name}
                                 position={{lat: coords.lat, lng: coords.lng}}
-                                icon={{
-                                    url: {logo}
-                                }}
-
                             />
                         )
                     })
@@ -282,9 +277,7 @@ class GMap extends Component {
             <div className="box">
                 {this.state.shops}
             </div>
-
-
-                
+    
         </div>
 
       );

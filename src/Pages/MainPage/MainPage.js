@@ -1,5 +1,4 @@
 import GMap from '../../Components/Map/Map'
-import Shop from '../../Components/Shop/Shop';
 
 const MainPage = () => {
 
@@ -16,7 +15,6 @@ const MainPage = () => {
 
 }
     
- 
 
 
 export default MainPage
