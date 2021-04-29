@@ -33,7 +33,7 @@ const Shop = (props) => {
                 </div>
 
                
-                <p>{props.address}</p>
+                <p>{props.addy}</p>
 
             
                 <div className="linkss">
